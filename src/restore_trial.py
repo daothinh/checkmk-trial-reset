@@ -4,6 +4,8 @@ from banner import bann #imports banner variable from file banner
 from trashSite import createSite, rmSite, copyFile #imports functions from file trashSite
 from scrapeSite import scrapeWeb, scrapeVers    #imports functions from file scrapeSite
 from colors import reset    #imports reset ascii code for the color reset used in printouts
+import sys
+
 
 def main(site, host):
     print(bann) #print banner
@@ -30,8 +32,19 @@ def main(site, host):
         print("No Site was given. Use -s or --site")    #if parameter site is missing
 
 if __name__ == "__main__":
-    parser =argparse.ArgumentParser(description="checkmk trial time reset script")
-    parser.add_argument("-s", "--site", nargs = "?", const = True, help = "Enter the site name")    #parameter declaration
-    parser.add_argument("-H", "--host", nargs = "?", const = True, help = "Enter Hostname or IP-Adress of the CheckMK Server") #parameter declaration
+    parser = argparse.ArgumentParser(description="checkmk trial time reset script")
+    parser.add_argument("-s", "--site", nargs="?", const=True, help="Enter the site name")  # Parameter declaration
+    parser.add_argument("-H", "--host", nargs="?", const=True, help="Enter Hostname or IP-Address of the CheckMK Server")  # Parameter declaration
     args = parser.parse_args()
+
+    # Check input
+    if args.site is None:
+        print("Error: Please provide a valid site name with the -s or --site option.")
+        sys.exit(1)
+    
+    if args.host is None:
+        print("Error: Please provide a valid host name or IP address with the -H or --host option.")
+        sys.exit(1)
+
+
     main(args.site, args.host)

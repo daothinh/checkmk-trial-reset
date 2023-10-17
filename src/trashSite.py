@@ -1,9 +1,9 @@
 import subprocess		#used to run commands and check for errors
 from colors import red, green, reset	#imports colors and reset for printouts
 
-def createSite():	#creates throwaway site
+def createSite():	#Create throwaway site
 	try:
-		#creating the one time site
+
 		subprocess.run(["omd", "create", "test"], capture_output=True, text=True, check=True)
 		print("Created New Site ...", green+"OK", reset)
 
@@ -11,7 +11,7 @@ def createSite():	#creates throwaway site
 		print(red+"Error Creating Site...Error Code:",reset, e)
 
 	try:
-		#starting the one time site
+		#Starting the one time site
 		subprocess.run(["omd", "start", "test"], capture_output=True, text=True, check=True)
 		
 	except subprocess.CalledProcessError as e:
